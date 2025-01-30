@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Líneas Onduladas Paralelas</title>
+    <style>
+/* Botón para ver video */
+.video-btn {
+    display: none; /* Oculto por defecto */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 10;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+}
+
+/* Mostrar el botón al hacer hover sobre la tarjeta */
+.cardprimary:hover .video-btn {
+    display: block;
+}
+
+/* Contenedor para el video */
+.video-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none; /* Oculto inicialmente */
+    background: rgba(0, 0, 0, 0.8); /* Fondo oscuro para resaltar el video */
+    z-index: 20;
+}
+
+/* Video iframe dentro del contenedor */
+.video-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+    </style>
+</head>
+<body>
+
+    <div class="cursos" id="cursos">
+        <h2 class="section-title">NUESTROS CURSOS</h2>
+        <div class="carousel-container">
+            <!-- Tarjeta 1 -->
+            <div class="cantocard">
+                <div class="cardprimary">
+                    <img class="cantocard-icon" alt="Canto" src="/img/CantoCard.png">
+                    <div class="esferaasignatura">
+                        <div class="canto">Canto</div>
+                    </div>
+                    <!-- Botón que aparece en hover -->
+                    <button class="video-btn" data-video-url="https://www.instagram.com/p/DCk0GMzIRiA/">Ver Video</button>
+                    <!-- Contenedor del video -->
+                    <div class="video-container"></div>
+                </div>
+            </div>
+    
+            <!-- Repite la estructura para las demás tarjetas -->
+            <!-- Tarjeta 2 -->
+            <div class="cantocard">
+                <div class="cardprimary">
+                    <img class="cantocard-icon" alt="Batería" src="/img/BataCard.png">
+                    <div class="esferaasignatura">
+                        <div class="canto">Batería</div>
+                    </div>
+                    <button class="video-btn" data-video-url="https://www.instagram.com/p/VIDEO_ID2/">Ver Video</button>
+                    <div class="video-container"></div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-text">20 años formando profesionales</div>
+    </div>
+    
+    
+    <script>
+        document.querySelectorAll('.video-btn').forEach(button => {
+            button.addEventListener('click', function (e) {
+                e.stopPropagation(); // Evita conflictos con otros eventos
+                const videoUrl = this.getAttribute('data-video-url'); // URL del video
+                const videoContainer = this.nextElementSibling; // Contenedor del video
+    
+                // Aseguramos que solo se muestre un video activo a la vez
+                document.querySelectorAll('.video-container').forEach(container => {
+                    container.style.display = 'none';
+                    container.innerHTML = '';
+                });
+    
+                // Insertar el iframe del video con autoplay
+                videoContainer.innerHTML = `
+                    <iframe 
+                        src="${videoUrl}embed/?autoplay=1" 
+                        frameborder="0" 
+                        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                        allowfullscreen>
+                    </iframe>
+                `;
+                videoContainer.style.display = 'block'; // Mostrar el contenedor del video
+            });
+        });
+    
+        // Ocultar el video al hacer clic fuera de él
+        document.querySelectorAll('.video-container').forEach(container => {
+            container.addEventListener('click', function () {
+                this.style.display = 'none'; // Ocultamos el contenedor
+                this.innerHTML = ''; // Limpiamos el iframe
+            });
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    
+    <script src="js/script.js"></script>
+    <script src="js/galeria.js"></script>
+    <script async src="//www.instagram.com/embed.js"></script>
+    
+</body>
+</html>
